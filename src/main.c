@@ -213,11 +213,9 @@ static int mainMenu() {
 
 			oslDrawImageXY(g_R,452,122);
 
-			//Draw menu:
+			//Draw menu icons:
 			for (i=first; i<=first+visible; i++) {
 				if (i == selected) {
-					oslIntraFontSetStyle(g_pgf_font, 0.5, RGBA(20,20,20,255), RGBA(255,255,255,200), 0.0, INTRAFONT_ALIGN_LEFT);
-					oslSetFont(g_pgf_font);
 					if (enable && !mode) {
 						if (oldSelected != selected) {
 							if (g_icon0!=NULL) {
@@ -249,9 +247,6 @@ static int mainMenu() {
 							oslDrawImageXY(g_icon0, 312,168);
 						}
 					}
-				} else {
-					oslIntraFontSetStyle(g_pgf_font, 0.5, RGBA(255,255,255,255), RGBA(0,0,0,0), 0.0, INTRAFONT_ALIGN_LEFT);
-					oslSetFont(g_pgf_font);
 				}
 
 				if (i < total) {
@@ -261,7 +256,24 @@ static int mainMenu() {
 						} else {
 							oslDrawImageXY(g_iso,12,start +(i - first)*oslGetImageHeight(g_folder));
 						}
+					} else if (mode == MODE_CATEGORIES) {
+						oslDrawImageXY(g_folder, 12, start + (i - first) * oslGetImageHeight(g_folder));
+					}
+				}
+			}
 
+			//Draw menu text:
+			for (i=first; i<=first+visible; i++) {
+				if (i == selected) {
+					oslIntraFontSetStyle(g_pgf_font, 0.5, RGBA(20,20,20,255), RGBA(255,255,255,200), 0.0, INTRAFONT_ALIGN_LEFT);
+					oslSetFont(g_pgf_font);
+				} else {
+					oslIntraFontSetStyle(g_pgf_font, 0.5, RGBA(255,255,255,255), RGBA(0,0,0,0), 0.0, INTRAFONT_ALIGN_LEFT);
+					oslSetFont(g_pgf_font);
+				}
+
+				if (i < total) {
+					if (mode == MODE_TITLELIST) {
 						if (strcmp(g_titles_list[i].category, "Uncategorized") != 0) {
 							strcpy(g_temp_name, g_titles_list[i].category);
 							strcat(g_temp_name, ": ");
@@ -270,7 +282,6 @@ static int mainMenu() {
 						oslDrawString(15+oslGetImageWidth(g_folder),start +(i - first)*oslGetImageHeight(g_folder), g_temp_name);//HBlist[i].name);
 
 					} else if (mode == MODE_CATEGORIES) {
-						oslDrawImageXY(g_folder,12,start +(i - first)*oslGetImageHeight(g_folder));
 						oslIntraFontSetStyle(g_pgf_font, 0.5, RGBA(0,0,0,255), RGBA(0,0,0,0), 0.0, INTRAFONT_ALIGN_LEFT);
 						oslSetFont(g_pgf_font);
 						oslDrawString(10+oslGetImageWidth(g_folder)/4,start +(i - first)*oslGetImageHeight(g_folder)+2, "C");
@@ -423,11 +434,9 @@ static int priorMenu() {
 			oslDrawImageXY(g_triangle,305,90);
 			oslDrawString(335,90,"View All");
 
-			//Draw menu:
+			//Draw menu icons:
 			for (i = first; i <= first+visible; i++) {
 				if (i == selected && i != 0) {
-					oslIntraFontSetStyle(g_pgf_font, 0.5, RGBA(20,20,20,255), RGBA(255,255,255,200), 0.0, INTRAFONT_ALIGN_LEFT);
-					oslSetFont(g_pgf_font);
 					if (enable) {
 						if (oldSelected != selected) {
 							if (g_icon0!=NULL) {
@@ -441,6 +450,19 @@ static int priorMenu() {
 							oslDrawImageXY(g_icon0, 312,168);
 						}
 					}
+				}
+
+				//CAT
+				if (i < total) {
+					oslDrawImageXY(g_folder,12,start +(i - first)*oslGetImageHeight(g_folder));
+				}
+			}
+
+			//Draw menu text:
+			for (i = first; i <= first+visible; i++) {
+				if (i == selected && i != 0) {
+					oslIntraFontSetStyle(g_pgf_font, 0.5, RGBA(20,20,20,255), RGBA(255,255,255,200), 0.0, INTRAFONT_ALIGN_LEFT);
+					oslSetFont(g_pgf_font);
 				} else {
 					oslIntraFontSetStyle(g_pgf_font, 0.5, RGBA(255,255,255,255), RGBA(0,0,0,0), 0.0, INTRAFONT_ALIGN_LEFT);
 					oslSetFont(g_pgf_font);
@@ -448,7 +470,6 @@ static int priorMenu() {
 
 				//CAT
 				if (i < total) {
-					oslDrawImageXY(g_folder,12,start +(i - first)*oslGetImageHeight(g_folder));
 					oslIntraFontSetStyle(g_pgf_font, 0.5, RGBA(0,0,0,255), RGBA(0,0,0,0), 0.0, INTRAFONT_ALIGN_LEFT);
 					oslSetFont(g_pgf_font);
 					oslDrawString(10+oslGetImageWidth(g_folder)/4,start +(i - first)*oslGetImageHeight(g_folder)+2, "C");
