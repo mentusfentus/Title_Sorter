@@ -24,7 +24,7 @@ endif
 
 EXTRA_TARGETS = EBOOT.PBP
 PSP_EBOOT_TITLE = Title Sorter (a.k.a. Homebrew Sorter Plus)
-PSP_EBOOT_ICON = ICON0.PNG
+PSP_EBOOT_ICON = ICON0.png
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
